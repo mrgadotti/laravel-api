@@ -12,6 +12,14 @@ Route::get('/user', function (Request $request) {
 Route::group([
     "middleware" => "auth:sanctum"
 ], function () {
-    Route::get('userprofile',[AuthController::class,'userProfile']);
-    Route::get('logout',[AuthController::class,'logout']);
+    Route::get('userprofile', [AuthController::class, 'userProfile']);
+    Route::get('logout', [AuthController::class, 'logout']);
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function () {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/loginapi', [AuthController::class, 'loginApi']);
 });
