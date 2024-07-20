@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\PartnerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +23,7 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 ], function () {
+    // Doesn't need token to make login
     Route::post('/loginapi', [AuthController::class, 'loginApi']);
     Route::post('/login', [AuthController::class, 'login']);
 
@@ -44,6 +47,11 @@ Route::group([
         // url/api/upload
         Route::post('/upload', [FileController::class, 'imageUpload']);
         Route::post('/upload_file', [FileController::class, 'fileUpload']);
+        Route::get('/courses', [CourseController::class, 'index']);
+        Route::post('/course_add', [CourseController::class, 'storeReturnId']);
+        Route::get('/course', [CourseController::class, 'course']);
+        Route::delete('/course', [CourseController::class, 'delete']);
+        Route::get('/partners', [PartnerController::class, 'indexFormated']);
     });
 
 });
